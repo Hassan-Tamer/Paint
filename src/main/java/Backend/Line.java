@@ -2,33 +2,23 @@ package Backend;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Color;
 
 public class Line extends ShapeAttributes{
-    private Point FinalPosition , StartingPosition;
+    private Point FinalPosition;
     
-    public Line(Point FinalPosition, Point StartingPosition , Color color) {
-        super(null,color,null);
+    public Line(Point FinalPosition, Point StartingPosition) {
+        super(StartingPosition);
         this.FinalPosition = FinalPosition;
-        this.StartingPosition = StartingPosition;
     }
 
     public Point getFinalPosition() {
         return FinalPosition;
     }
 
-    public Point getStartingPosition() {
-        return StartingPosition;
-    }
-
-
-    public void setStartingPosition(Point startingPosition) {
-        StartingPosition = startingPosition;
-    }
-
     public void draw(Graphics canvas) {
         canvas.setColor(getColor());
-        canvas.drawLine(((int)getStartingPosition().getX()), ((int)getStartingPosition().getY()),
+        Point Start = getPosition();
+        canvas.drawLine(((int)Start.getX()), ((int)Start.getY()),
                         ((int)getFinalPosition().getX()), ((int)getFinalPosition().getY()));
     }
 }

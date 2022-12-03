@@ -6,8 +6,8 @@ import java.awt.Point;
 public class Circle extends ShapeAttributes {
     private int Radius;
     
-    public Circle(Point position, Color color, Color fillColor, int Radius){
-        super(position, color, fillColor);
+    public Circle(Point position,int Radius){
+        super(position);
         this.Radius = Radius;
     }
 

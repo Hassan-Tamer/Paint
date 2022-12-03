@@ -26,12 +26,7 @@ public class FillColor extends javax.swing.JFrame implements Node {
         FillColorChooser = new javax.swing.JColorChooser();
         SetBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         SetBtn.setBackground(new java.awt.Color(153, 255, 255));
         SetBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

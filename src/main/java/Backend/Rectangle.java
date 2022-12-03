@@ -7,8 +7,8 @@ import java.awt.Point;
 public class Rectangle extends ShapeAttributes{
     private int width,height;
     
-    public Rectangle(Point position, Color color, Color fillColor, int width, int height) {
-        super(position, color, fillColor);
+    public Rectangle(Point position,int width, int height) {
+        super(position);
         this.width = width;
         this.height = height;
     }

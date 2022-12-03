@@ -6,14 +6,12 @@ import java.awt.Point;
 
 
 public abstract class ShapeAttributes implements Shape{
-    private Point position;
-    private Color color;
-    private Color fillColor;
+    private Point position , draggingPoint;
+    private Color color = Color.BLACK;
+    private Color fillColor = Color.WHITE;
 
-    public ShapeAttributes(Point position, Color color, Color fillColor) {
-        this.position = position;
-        this.color = color;
-        this.fillColor = fillColor;
+    public ShapeAttributes(Point position) {
+        setPosition(position);
         }
 
     @Override
