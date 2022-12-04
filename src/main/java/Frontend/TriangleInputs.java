@@ -1,13 +1,24 @@
 package Frontend;
 
+import java.awt.Point;
 
-public class TriangleInputs extends javax.swing.JFrame {
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
 
-    /**
-     * Creates new form TriangleInputs
-     */
+import java.awt.Color;
+import Backend.DrawingEngineBody;
+import Backend.Triangle;
+
+public class TriangleInputs extends javax.swing.JFrame implements Node{
+
+    private Node Pnode;
+    private DrawingEngineBody D;
+    private Color Fill = Color.WHITE;
+    private Color Border = Color.BLACK;
+
     public TriangleInputs() {
         initComponents();
+        setTitle("Triangle Inputs");
     }
 
     /**
@@ -27,9 +38,9 @@ public class TriangleInputs extends javax.swing.JFrame {
         Y1Data = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         X2Data = new javax.swing.JTextField();
-        X3Data1 = new javax.swing.JTextField();
+        X3Data = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        Y1Data1 = new javax.swing.JTextField();
+        Y3Data = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         FillBtn = new javax.swing.JButton();
         BorderBtn = new javax.swing.JButton();
@@ -86,11 +97,11 @@ public class TriangleInputs extends javax.swing.JFrame {
             }
         });
 
-        X3Data1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        X3Data1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        X3Data1.addActionListener(new java.awt.event.ActionListener() {
+        X3Data.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        X3Data.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        X3Data.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                X3Data1ActionPerformed(evt);
+                X3DataActionPerformed(evt);
             }
         });
 
@@ -98,11 +109,11 @@ public class TriangleInputs extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("X3");
 
-        Y1Data1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Y1Data1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Y1Data1.addActionListener(new java.awt.event.ActionListener() {
+        Y3Data.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Y3Data.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Y3Data.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Y1Data1ActionPerformed(evt);
+                Y3DataActionPerformed(evt);
             }
         });
 
@@ -146,33 +157,6 @@ public class TriangleInputs extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(X3Data1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Y1Data1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(29, 29, 29)
-                            .addComponent(Y2Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(29, 29, 29)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(X1Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Y1Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(X2Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -183,6 +167,32 @@ public class TriangleInputs extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                         .addComponent(BorderBtn)
                         .addGap(28, 28, 28))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(X3Data, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(Y3Data)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(Y2Data))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(X1Data, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(Y1Data)
+                            .addComponent(X2Data))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,11 +216,11 @@ public class TriangleInputs extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(X3Data1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(X3Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(Y1Data1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Y3Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FillBtn)
@@ -239,24 +249,47 @@ public class TriangleInputs extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_X2DataActionPerformed
 
-    private void X3Data1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_X3Data1ActionPerformed
+    private void X3DataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_X3DataActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_X3Data1ActionPerformed
+    }//GEN-LAST:event_X3DataActionPerformed
 
-    private void Y1Data1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Y1Data1ActionPerformed
+    private void Y3DataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Y3DataActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Y1Data1ActionPerformed
+    }//GEN-LAST:event_Y3DataActionPerformed
 
     private void FillBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FillBtnActionPerformed
-        // TODO add your handling code here:
+        Fill=JColorChooser.showDialog(this,"Fill Color",Color.WHITE);
     }//GEN-LAST:event_FillBtnActionPerformed
 
     private void BorderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorderBtnActionPerformed
-        // TODO add your handling code here:
+        Border=JColorChooser.showDialog(this,"Border Color",Color.BLACK);
     }//GEN-LAST:event_BorderBtnActionPerformed
 
     private void CreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateBtnActionPerformed
-        // TODO add your handling code here:
+        D = ((MainWindow)Pnode).getDrawingEngine();
+        javax.swing.JTextField[] TextFields = {X1Data,Y1Data,X2Data,Y2Data,X3Data,Y3Data};
+        int x1 = ((MainWindow)Pnode).Validations(X1Data);
+        int y1 = ((MainWindow)Pnode).Validations(Y1Data);
+        int x2 = ((MainWindow)Pnode).Validations(X2Data);
+        int y2 = ((MainWindow)Pnode).Validations(Y2Data);
+        int x3 = ((MainWindow)Pnode).Validations(X3Data);
+        int y3 = ((MainWindow)Pnode).Validations(Y3Data);
+        int[] variables = {x1,x2,x3,y1,y2,y3};
+        
+        for(int i : variables){
+            if(i==-1)
+                break;
+        }
+        Triangle triangle = new Triangle(new Point(x1,y1),new Point(x2,y2),new Point(x3,y3));
+        triangle.setColor(Border);
+        triangle.setFillColor(Fill);
+        D.addShape(triangle);
+        ((MainWindow)Pnode).AddComboBox("Triangle");
+        setVisible(false);
+        ((JFrame)Pnode).setVisible(true);
+        for(javax.swing.JTextField t:TextFields){       //clear all text fields
+            t.setText("");
+        }
     }//GEN-LAST:event_CreateBtnActionPerformed
 
     /**
@@ -300,10 +333,10 @@ public class TriangleInputs extends javax.swing.JFrame {
     private javax.swing.JButton FillBtn;
     private javax.swing.JTextField X1Data;
     private javax.swing.JTextField X2Data;
-    private javax.swing.JTextField X3Data1;
+    private javax.swing.JTextField X3Data;
     private javax.swing.JTextField Y1Data;
-    private javax.swing.JTextField Y1Data1;
     private javax.swing.JTextField Y2Data;
+    private javax.swing.JTextField Y3Data;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -311,4 +344,15 @@ public class TriangleInputs extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setParentNode(Node n) {
+        Pnode = n;
+    }
+
+    @Override
+    public Node getParentNode() {
+        return Pnode;
+    }
+
 }

@@ -1,6 +1,6 @@
 package Backend;
 
-public interface Shape {
+public interface Shape{
     //Set position
     public void setPosition(java.awt.Point position);
     public java.awt.Point getPosition();

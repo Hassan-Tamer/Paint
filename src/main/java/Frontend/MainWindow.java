@@ -1,9 +1,9 @@
 package Frontend;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import Backend.*;
 
@@ -13,17 +13,12 @@ public class MainWindow extends javax.swing.JFrame implements Node{
      */
     
     private DrawingEngineBody D;
-    private ColorWindow colorize = new ColorWindow();
     private Node Pnode;
-    private Color Border,Fill;
+    private Color Border = Color.BLACK,Fill = Color.WHITE;
     private CircleInputs CircleWindow;
-    // private RectangleInputs RectangleWindow;
-    // private TriangleInputs TriangleWindow;
-    // private LineInputs LineWindow;
-    
-    // public ColorWindow getc(){
-    //     return colorize;
-    // }
+    private RectangleInputs RectangleWindow;
+    private TriangleInputs TriangleWindow;
+    private LineInputs LineWindow;
 
     public void setFill(Color fill) {
         Fill = fill;
@@ -46,7 +41,6 @@ public class MainWindow extends javax.swing.JFrame implements Node{
         setTitle("Drawing application");
         D = new DrawingEngineBody(DrawingPanel.getGraphics());
         setResizable(false);
-        colorize.setParentNode(this);
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -197,9 +191,8 @@ public class MainWindow extends javax.swing.JFrame implements Node{
     
     protected void jComboBox1ActionPerformed(ActionEvent evt) {
     }
-    
-
-    private void AddComboBox(String name){
+  
+    public void AddComboBox(String name){
         if(jComboBox1.getSelectedIndex() == -1)     //In case we deleted all shapes we restart indexing
             D.setIndex(1);
         int index = D.getIndex();
@@ -207,46 +200,28 @@ public class MainWindow extends javax.swing.JFrame implements Node{
         jComboBox1.setSelectedIndex(index-1);       //sets the selected item the last drawn figure
     }
 
-    private int getVariable(String Var , String Title){
-        //Pop an input message and take the input
-        String Varstr = JOptionPane.showInputDialog(null,"Enter "+Var+":",
-        "Getting "+Title,JOptionPane.INFORMATION_MESSAGE);
-
-        //If the user closed the panel function returns -1
-        if(Varstr == null)
+    public int Validations(javax.swing.JTextField Data){
+        String Str = Data.getText();
+        if(Str.equals("")){
+            Data.setText("ADD DATA HERE");
             return -1;
-        try{
-            int var = Integer.parseInt(Varstr);
-            //If the value is negative function keeps asking for the correct value
-            if(var < 0){
-                JOptionPane.showMessageDialog(null,"YOU MUST ENTER AN ACCEPTABLE VALUE"
-                ,"Negative Number Error",JOptionPane.ERROR_MESSAGE);
-                return getVariable(Var, Title);
+        }
+        else{
+            try{
+                int var = Integer.parseInt(Str);
+                if(var < 0){
+                    Data.setText("ADD POSITIVE VALUES");
+                    return -1;
                 }
-            return var;
+                else{
+                    return var;
+                }
+            }
+            catch(NumberFormatException e){
+                    Data.setText("NOT NUMERIC VALUE");
+                    return -1;
+            }
         }
-        catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null,"YOU MUST ENTER AN ACCEPTABLE VALUE"
-                ,"Data Type Error",JOptionPane.ERROR_MESSAGE);
-                return getVariable(Var, Title);
-        }
-    }
-    
-    //Overload the above function
-    //Special case to return a point instead of a single integer
-    private Point getVariable(){
-        int X = getVariable("X","Position in X");
-
-        if(X == -1)
-            return null;
-        
-        int Y = getVariable("Y","Position in Y");
-
-        if(Y == -1)
-            return null;
-
-        Point P = new Point(X,Y);
-        return P;
     }
 
     private void CircleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CircleBtnActionPerformed
@@ -258,67 +233,27 @@ public class MainWindow extends javax.swing.JFrame implements Node{
     }//GEN-LAST:event_CircleBtnActionPerformed
 
     private void LineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineBtnActionPerformed
-        //Getting variables
-        int X1 = getVariable("X1" , "Starting Point (X1) Radius");
-        
-        if(X1 == -1)        //indicates that the user closed the window
-            return;
-
-        int Y1 = getVariable("Y1" , "Starting Point (Y1) Radius");
-        
-        if(Y1 == -1)
-            return;
-
-        int X2 = getVariable("X2" , "End Point (X2) Radius");
-        
-        if(X2 == -1)
-            return;
-
-        int Y2 = getVariable("Y2" , "End Point (Y2) Radius");
-        
-        if(Y2 == -1)
-            return;
-
-        Line l = new Line(new Point(X1,Y1) , new Point(X2,Y2));
-        D.addShape(l);
-        AddComboBox("Line");
+        if(LineWindow == null){
+            LineWindow = new LineInputs();
+            LineWindow.setParentNode(this);
+        }
+        LineWindow.setVisible(true);
     }//GEN-LAST:event_LineBtnActionPerformed
 
     private void TriangleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TriangleBtnActionPerformed
-        Point p1,p2,p3;
-        p1 = getVariable();
-        p2 = getVariable();
-        p3 = getVariable();
-
-        Triangle tri = new Triangle(p1,p2,p3);
-        D.addShape(tri);
-        AddComboBox("Triangle");
+        if(TriangleWindow == null){
+            TriangleWindow = new TriangleInputs();
+            TriangleWindow.setParentNode(this);
+        }
+        TriangleWindow.setVisible(true);
     }//GEN-LAST:event_TriangleBtnActionPerformed
 
     private void RectangleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RectangleBtnActionPerformed
-       //Getting data to draw rectangle
-
-        Point p = new Point();
-        p = getVariable();
-        if(p == null)       //indicates that the user closed the window
-            return;
-        int X = ((int)p.getX());
-        int Y = ((int)p.getY());
-
-        int Width = getVariable("Width" , "Rectangle's Width");
-        
-        if(Width == -1)  //indicates that the user closed the window
-            return;
-
-        int Height = getVariable("Height" , "Rectangle's Height");
-        
-        if(Height == -1)
-            return;
-        
-        Rectangle rec = new Rectangle(new Point(X,Y),Width,Height);
-
-        D.addShape(rec);
-        AddComboBox("Rectangle");
+        if(RectangleWindow == null){
+            RectangleWindow = new RectangleInputs();
+            RectangleWindow.setParentNode(this);
+        }
+        RectangleWindow.setVisible(true);
     }//GEN-LAST:event_RectangleBtnActionPerformed
 
     private void ColorizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ColorizeBtnActionPerformed
@@ -328,12 +263,21 @@ public class MainWindow extends javax.swing.JFrame implements Node{
             "WARNING" , 2);
             return;
         }
+        Color c1=JColorChooser.showDialog(this,"Border Color",Color.BLACK);
+        Color c2=JColorChooser.showDialog(this,"Fill Color",Color.WHITE);
+
+        if(c1 != null)
+            Border = c1;
+        if(c2 != null)
+            Fill = c2;
         
-        if(colorize == null){
-            colorize = new ColorWindow();
-            colorize.setParentNode(this);
-        }
-        colorize.setVisible(true);
+
+        int index = jComboBox1.getSelectedIndex();
+        Shape[] s = D.getShapes();
+        s[index].setColor(Border);
+        if(!(s[index] instanceof Line))     //Lines don't have Fill color
+            s[index].setFillColor(Fill);
+        D.refresh(DrawingPanel.getGraphics());
     }//GEN-LAST:event_ColorizeBtnActionPerformed
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
@@ -349,15 +293,6 @@ public class MainWindow extends javax.swing.JFrame implements Node{
         jComboBox1.removeItem(jComboBox1.getSelectedItem());
 
     }//GEN-LAST:event_DeleteBtnActionPerformed
-
-    public void colorShape(){
-        int index = jComboBox1.getSelectedIndex();
-        Shape[] s = D.getShapes();
-        s[index].setColor(Border);
-        if(!(s[index] instanceof Line))     //Lines don't have Fill color
-            s[index].setFillColor(Fill);
-        D.refresh(DrawingPanel.getGraphics());
-    }
 
     private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
         // TODO add your handling code here:

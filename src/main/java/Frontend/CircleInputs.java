@@ -1,6 +1,8 @@
 package Frontend;
 import java.awt.Point;
 import java.awt.Color;
+
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import Backend.DrawingEngineBody;
 import Backend.Circle;
@@ -8,16 +10,12 @@ import Backend.Circle;
 
 public class CircleInputs extends javax.swing.JFrame implements Node{
     private Node Pnode;
-    private javax.swing.JComboBox<String> ComboBox;
     private DrawingEngineBody D;
-    private FillColor FillMenu;
-    private BorderColor BorderMenu;
-    ColorWindow coWindow;
+    private Color Fill = Color.WHITE;
+    private Color Border = Color.BLACK;
 
     public CircleInputs(){
         initComponents();
-        FillMenu = null;
-        BorderMenu = null;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -34,11 +32,6 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
         CreateBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
         setTitle("Add Circle");
 
         XData.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -57,7 +50,6 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
         YData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         YData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
             }
         });
 
@@ -69,7 +61,6 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
         RadiusData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         RadiusData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
             }
         });
 
@@ -126,7 +117,7 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(XData, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(XData)))
                 .addContainerGap(132, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -169,52 +160,21 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
         ((JFrame)getParentNode()).setVisible(true);
     }           
 
-    private void AddComboBox(String name){
-        if(ComboBox.getSelectedIndex() == -1)     //In case we deleted all shapes we restart indexing
-            D.setIndex(1);
-        int index = D.getIndex();
-        ComboBox.addItem(name+" "+index);
-        ComboBox.setSelectedIndex(index-1);       //sets the selected item the last drawn figure
-    }
-
-    private int Validations(javax.swing.JTextField Data){
-        String Str = Data.getText();
-        if(Str.equals("")){
-            Data.setText("ADD DATA HERE");
-            return -1;
-        }
-        else{
-            try{
-                int var = Integer.parseInt(Str);
-                if(var < 0){
-                    Data.setText("ADD POSITIVE VALUES");
-                    return -1;
-                }
-                else{
-                    return var;
-                }
-            }
-            catch(NumberFormatException e){
-                    Data.setText("NOT NUMERIC VALUE");
-                    return -1;
-            }
-        }
-    }
-
     private void CreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateBtnActionPerformed
-        ComboBox = ((MainWindow)Pnode).getComboBox();
         D = ((MainWindow)Pnode).getDrawingEngine();
         javax.swing.JTextField[] TextFields = {XData,YData,RadiusData};
-        int x = Validations(XData);
-        int y = Validations(YData);
-        int radius = Validations(RadiusData);
+        int x = ((MainWindow)Pnode).Validations(XData);
+        int y = ((MainWindow)Pnode).Validations(YData);
+        int radius = ((MainWindow)Pnode).Validations(RadiusData);
         if(x == -1 || y== -1 || radius == -1){
 
         }
         else{
             Circle c = new Circle(new Point(x,y),radius);
+            c.setColor(Border);
+            c.setFillColor(Fill);
             D.addShape(c);
-            AddComboBox("Circle");
+            ((MainWindow)Pnode).AddComboBox("Circle");
             setVisible(false);
             ((JFrame)Pnode).setVisible(true);
             for(javax.swing.JTextField t:TextFields){       //clear all text fields
@@ -226,11 +186,11 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
     }//GEN-LAST:event_CreateBtnActionPerformed
 
     private void FillBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FillBtnActionPerformed
-        
+        Fill=JColorChooser.showDialog(this,"Fill Color",Color.WHITE);
     }//GEN-LAST:event_FillBtnActionPerformed
 
     private void BorderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorderBtnActionPerformed
-        // TODO add your handling code here:
+        Border=JColorChooser.showDialog(this,"Border Color",Color.BLACK);
     }//GEN-LAST:event_BorderBtnActionPerformed
 
     /**

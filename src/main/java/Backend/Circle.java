@@ -22,8 +22,8 @@ public class Circle extends ShapeAttributes {
     @Override
     public void draw(Graphics canvas) {
         canvas.setColor(getFillColor());
-        canvas.fillOval(((int)getPosition().getX()), ((int)getPosition().getX()) , Radius , Radius);
+        canvas.fillOval(((int)getPosition().getX()), ((int)getPosition().getX()) , 2*Radius , 2*Radius);
         canvas.setColor(getColor());
-        canvas.drawOval(((int)getPosition().getX()), ((int)getPosition().getX()) , Radius , Radius);
+        canvas.drawOval(((int)getPosition().getX()), ((int)getPosition().getX()) , 2*Radius , 2*Radius);
     }
 }

@@ -1,11 +1,20 @@
 package Frontend;
+import java.awt.Point;
 
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
 
-public class LineInputs extends javax.swing.JFrame {
+import java.awt.Color;
+import Backend.DrawingEngineBody;
+import Backend.Line;
 
-    /**
-     * Creates new form LineInputs
-     */
+public class LineInputs extends javax.swing.JFrame implements Node {
+
+    private Node Pnode;
+    private DrawingEngineBody D;
+    private Color Fill = Color.WHITE;
+    private Color Border = Color.BLACK;
+
     public LineInputs() {
         initComponents();
     }
@@ -114,22 +123,22 @@ public class LineInputs extends javax.swing.JFrame {
                     .addComponent(BorderBtn)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(Y2Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Y2Data, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(X1Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Y1Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(X2Data, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(86, 86, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(X1Data, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(Y1Data)
+                                    .addComponent(X2Data))))))
+                .addGap(38, 38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,11 +174,32 @@ public class LineInputs extends javax.swing.JFrame {
     }//GEN-LAST:event_Y2DataActionPerformed
 
     private void BorderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorderBtnActionPerformed
-        // TODO add your handling code here:
+        Border=JColorChooser.showDialog(this,"Border Color",Color.BLACK);
     }//GEN-LAST:event_BorderBtnActionPerformed
 
     private void CreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateBtnActionPerformed
-        // TODO add your handling code here:
+        D = ((MainWindow)Pnode).getDrawingEngine();
+        javax.swing.JTextField[] TextFields = {X1Data,Y1Data,X2Data,Y2Data};
+        int x1 = ((MainWindow)Pnode).Validations(X1Data);
+        int y1 = ((MainWindow)Pnode).Validations(Y1Data);
+        int x2 = ((MainWindow)Pnode).Validations(X2Data);
+        int y2 = ((MainWindow)Pnode).Validations(Y2Data);
+        int[] variables = {x1,x2,y1,y2};
+        
+        for(int i : variables){
+            if(i==-1)
+                break;
+        }
+        Line line = new Line(new Point(x1,y1),new Point(x2,y2));
+        line.setColor(Border);
+        line.setFillColor(Fill);
+        D.addShape(line);
+        ((MainWindow)Pnode).AddComboBox("Line");
+        setVisible(false);
+        ((JFrame)Pnode).setVisible(true);
+        for(javax.swing.JTextField t:TextFields){       //clear all text fields
+            t.setText("");
+        }
     }//GEN-LAST:event_CreateBtnActionPerformed
 
     private void Y1DataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Y1DataActionPerformed
@@ -231,4 +261,13 @@ public class LineInputs extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+    @Override
+    public void setParentNode(Node n) {
+        Pnode = n;
+    }
+
+    @Override
+    public Node getParentNode() {
+        return Pnode;
+    }
 }
