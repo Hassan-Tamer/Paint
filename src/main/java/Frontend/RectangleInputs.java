@@ -35,6 +35,11 @@ public class RectangleInputs extends javax.swing.JFrame implements Node{
         CreateBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         setTitle("Add Rectangle");
         setResizable(false);
 
@@ -271,4 +276,8 @@ public class RectangleInputs extends javax.swing.JFrame implements Node{
     public Node getParentNode() {
         return Pnode;
     }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                                                  
+        this.setVisible(false);
+        ((JFrame)getParentNode()).setVisible(true);
+    }           
 }

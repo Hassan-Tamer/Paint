@@ -18,7 +18,7 @@ public class TriangleInputs extends javax.swing.JFrame implements Node{
 
     public TriangleInputs() {
         initComponents();
-        setTitle("Triangle Inputs");
+        setTitle("Add Triangle");
     }
 
     /**
@@ -47,6 +47,11 @@ public class TriangleInputs extends javax.swing.JFrame implements Node{
         CreateBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         setResizable(false);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -354,5 +359,8 @@ public class TriangleInputs extends javax.swing.JFrame implements Node{
     public Node getParentNode() {
         return Pnode;
     }
-
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                                                  
+        this.setVisible(false);
+        ((JFrame)getParentNode()).setVisible(true);
+    }           
 }
