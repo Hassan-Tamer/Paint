@@ -37,10 +37,10 @@ public class Triangle extends ShapeAttributes{
 
     @Override
     public void moveTo(Point point) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    
-    
+        int xdiff = point.x - getDraggingPoint().x;
+        int ydiff = point.y - getDraggingPoint().y;
+        point2 = new Point(point2.x + xdiff, point2.y + ydiff);
+        point3 = new Point(point3.x + xdiff, point3.y + ydiff);
+        setPosition(new Point(getPosition().x + xdiff, getPosition().y + ydiff));
+    }    
 }

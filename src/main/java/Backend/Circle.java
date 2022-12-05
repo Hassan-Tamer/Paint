@@ -38,7 +38,10 @@ public class Circle extends ShapeAttributes {
 
     @Override
     public void moveTo(Point point) {
-        // TODO Auto-generated method stub
-        
+        Point p=getDraggingPoint();
+        Point start = getPosition();
+        point.x+=(start.x-p.x);
+        point.y+=(start.y-p.y);
+        setPosition(point);
     }
 }

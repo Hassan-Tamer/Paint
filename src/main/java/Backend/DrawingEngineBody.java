@@ -1,9 +1,12 @@
 package Backend;
 
 import java.awt.Graphics;
+import java.net.http.HttpClient.Version;
 import java.util.ArrayList;
 
-public class DrawingEngineBody implements DrawingEngine {
+import javax.swing.JPanel;
+
+public class DrawingEngineBody extends java.awt.Canvas implements DrawingEngine {
     private ArrayList<Shape> ShapeList = new ArrayList<>();
     private Graphics canvas;
     private int index;
@@ -42,9 +45,10 @@ public class DrawingEngineBody implements DrawingEngine {
 
     @Override
     public void refresh(Graphics canvas) {
-        canvas.clearRect(0, 0, 999, 999);
+        canvas.clearRect(0, 0, 9999, 9999);
         for(Shape s : ShapeList){
             s.draw(canvas);
         }
     }
+
 }

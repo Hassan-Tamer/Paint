@@ -4,7 +4,12 @@ import java.awt.Color;
 import java.awt.Point;
 
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.Popup;
+import javax.swing.event.PopupMenuEvent;
+
+import org.apache.lucene.index.IndexReader.CacheHelper;
 
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -25,6 +30,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     private RectangleInputs RectangleWindow;
     private TriangleInputs TriangleWindow;
     private LineInputs LineWindow;
+    private int SelectedIndex = -1;
 
     public void setFill(Color fill) {
         Fill = fill;
@@ -42,10 +48,10 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         initComponents();
         setTitle("Drawing application");
         D = new DrawingEngineBody(DrawingPanel.getGraphics());
-
+        // DrawingPanel.add(D);
         DrawingPanel.addMouseListener(this);
         DrawingPanel.addMouseMotionListener(this);
-        
+//        DrawingPanel.add();
         setResizable(false);
     }
     
@@ -87,7 +93,6 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         TriangleBtn.setBackground(new java.awt.Color(153, 255, 255));
         TriangleBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TriangleBtn.setText("Triangle");
-        TriangleBtn.setActionCommand("Triangle");
         TriangleBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TriangleBtnActionPerformed(evt);
@@ -109,10 +114,12 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                
             }
         });
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
             }
         });
 
@@ -154,7 +161,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
                         .addGap(18, 18, 18)
                         .addComponent(DeleteBtn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(CircleBtn)
                         .addGap(38, 38, 38)
@@ -163,8 +170,8 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
                         .addComponent(TriangleBtn)
                         .addGap(51, 51, 51)
                         .addComponent(RectangleBtn))
-                    .addComponent(DrawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addComponent(DrawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,16 +185,16 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
                     .addComponent(ColorizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(123, 123, 123))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RectangleBtn)
                     .addComponent(TriangleBtn)
                     .addComponent(LineBtn)
                     .addComponent(CircleBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DrawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(34, 34, 34)
+                .addComponent(DrawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -231,6 +238,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
             CircleWindow.setParentNode(this);
         }
         CircleWindow.setVisible(true);
+         
     }//GEN-LAST:event_CircleBtnActionPerformed
 
     private void LineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineBtnActionPerformed
@@ -353,37 +361,34 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
+    public void mousePressed(MouseEvent e) {
         Shape[] shapes = D.getShapes();
         int i = 0;
         for(Shape s : shapes){
-            if(s.contains(new Point(x,y))){
+            if(s.contains(e.getPoint())){
                 jComboBox1.setSelectedIndex(i);
-                // System.out.println("YES");
+                s.setDraggingPoint(e.getPoint());
+                SelectedIndex=i;
+                return;
             }
             i++;
         }
     }
 
-    // @Override
+    @Override
     public void mouseDragged(MouseEvent e) {
-    //     int x = e.getX();
-    //     int y = e.getY();
-    //     Shape[] shapes = D.getShapes();
-    //     int i = 0;
-    //     for(Shape s : shapes){
-    //         if(s.contains(new Point(x,y))){
-    //             s.moveTo(new Point(x,y));
-    //         }
-    //         i++;
-    //     }
-    //     D.refresh(DrawingPanel.getGraphics());
+        Shape[] shapes = D.getShapes();
+       if(SelectedIndex!=-1){
+    
+        shapes[SelectedIndex].moveTo(e.getPoint());
+        shapes[SelectedIndex].setDraggingPoint(e.getPoint());
+        D.refresh(DrawingPanel.getGraphics());
+      
+       }
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
         
     }

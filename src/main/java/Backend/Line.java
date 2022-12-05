@@ -34,10 +34,11 @@ public class Line extends ShapeAttributes{
 
     @Override
     public void moveTo(Point point) {
+        Point Start = getPosition();
         int x = point.x - FinalPosition.x;
         int y = point.y - FinalPosition.y;
+        setPosition(new Point(Start.x+x,Start.y+y));
         FinalPosition.x+=x;
         FinalPosition.y+=y;
-        
     }
 }

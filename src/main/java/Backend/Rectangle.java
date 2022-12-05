@@ -45,15 +45,13 @@ public class Rectangle extends ShapeAttributes{
 
     @Override
     public void moveTo(Point point) {
-        setDraggingPoint(point);
+        Point p=getDraggingPoint();
         Point start = getPosition();
-        // int x = point.x - start.x;
-        // int y = point.y - start.y;
-        start.x+=point.x;
-        start.y+=point.y;
-        setPosition(start);
-
-
-        
+        point.x+=(start.x-p.x);
+        point.y+=(start.y-p.y);
+        // int xdiff= p.x - start.x;
+        // int ydiff = p.y - start.y;
+        // setPosition(new Point(start.x+xdiff , start.y+ydiff));
+        setPosition(point);
     }
 }

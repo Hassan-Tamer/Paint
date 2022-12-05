@@ -21,7 +21,7 @@ public abstract class ShapeAttributes implements Shape{
     }
     
     @Override
-    public Point getDraggPoint() {
+    public Point getDraggingPoint() {
         return draggingPoint;
     }
 
