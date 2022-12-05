@@ -1,13 +1,19 @@
 package Frontend;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
+import java.awt.Point;
 
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
+
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
+
 import Backend.*;
 
-public class MainWindow extends javax.swing.JFrame implements Node{
+public class MainWindow extends javax.swing.JFrame implements Node , MouseListener,MouseMotionListener{
     /**
      * Creates new form MainWindow
      */
@@ -28,10 +34,6 @@ public class MainWindow extends javax.swing.JFrame implements Node{
         Border = border;
     }
 
-    public javax.swing.JComboBox<String> getComboBox(){
-        return jComboBox1;
-    }
-
     public DrawingEngineBody getDrawingEngine(){
         return D;
     }
@@ -40,6 +42,10 @@ public class MainWindow extends javax.swing.JFrame implements Node{
         initComponents();
         setTitle("Drawing application");
         D = new DrawingEngineBody(DrawingPanel.getGraphics());
+
+        DrawingPanel.addMouseListener(this);
+        DrawingPanel.addMouseMotionListener(this);
+        
         setResizable(false);
     }
     
@@ -103,12 +109,10 @@ public class MainWindow extends javax.swing.JFrame implements Node{
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseClicked(evt);
             }
         });
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -189,9 +193,6 @@ public class MainWindow extends javax.swing.JFrame implements Node{
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    protected void jComboBox1ActionPerformed(ActionEvent evt) {
-    }
-  
     public void AddComboBox(String name){
         if(jComboBox1.getSelectedIndex() == -1)     //In case we deleted all shapes we restart indexing
             D.setIndex(1);
@@ -294,10 +295,6 @@ public class MainWindow extends javax.swing.JFrame implements Node{
 
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
-    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -344,7 +341,7 @@ public class MainWindow extends javax.swing.JFrame implements Node{
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
-
+    
     @Override
     public void setParentNode(Node n) {
         Pnode = n;
@@ -353,5 +350,64 @@ public class MainWindow extends javax.swing.JFrame implements Node{
     @Override
     public Node getParentNode() {
         return Pnode;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        Shape[] shapes = D.getShapes();
+        int i = 0;
+        for(Shape s : shapes){
+            if(s.contains(new Point(x,y))){
+                jComboBox1.setSelectedIndex(i);
+                // System.out.println("YES");
+            }
+            i++;
+        }
+    }
+
+    // @Override
+    public void mouseDragged(MouseEvent e) {
+    //     int x = e.getX();
+    //     int y = e.getY();
+    //     Shape[] shapes = D.getShapes();
+    //     int i = 0;
+    //     for(Shape s : shapes){
+    //         if(s.contains(new Point(x,y))){
+    //             s.moveTo(new Point(x,y));
+    //         }
+    //         i++;
+    //     }
+    //     D.refresh(DrawingPanel.getGraphics());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void mouseMoved(MouseEvent e) {        
     }
 }

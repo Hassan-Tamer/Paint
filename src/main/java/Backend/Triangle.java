@@ -3,6 +3,8 @@ package Backend;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import org.apache.lucene.geo.Polygon;
+
 public class Triangle extends ShapeAttributes{
 
     private Point point2 , point3;
@@ -23,5 +25,22 @@ public class Triangle extends ShapeAttributes{
         canvas.setColor(getFillColor());
         canvas.fillPolygon(x, y, 3);
     }
+
+    @Override
+    public boolean contains(Point point) {
+        Point point1 = getPosition();
+        int x[] = {((int)point1.getX()) , ((int)point2.getX()) , ((int)point3.getX())};
+        int y[]= {((int)point1.getY()) , ((int)point2.getY()) , ((int)point3.getY())};
+        java.awt.Polygon polygon=new java.awt.Polygon(x, y, 3);
+        return polygon.contains(point.x, point.y);
+    }
+
+    @Override
+    public void moveTo(Point point) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    
     
 }

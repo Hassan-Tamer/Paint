@@ -26,4 +26,19 @@ public class Circle extends ShapeAttributes {
         canvas.setColor(getColor());
         canvas.drawOval(((int)getPosition().getX()), ((int)getPosition().getX()) , 2*Radius , 2*Radius);
     }
+
+    @Override
+    public boolean contains(Point point) {
+        Point Start = getPosition();
+        Point Center = new Point();
+        Center.x = Start.x + Radius;
+        Center.y = Start.y + Radius;
+        return point.distance(Center) <= Radius;
+    }
+
+    @Override
+    public void moveTo(Point point) {
+        // TODO Auto-generated method stub
+        
+    }
 }

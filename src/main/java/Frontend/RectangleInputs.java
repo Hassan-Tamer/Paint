@@ -215,6 +215,7 @@ public class RectangleInputs extends javax.swing.JFrame implements Node{
             for(javax.swing.JTextField t:TextFields){       //clear all text fields
                 t.setText("");
             }
+            
         }
     }//GEN-LAST:event_CreateBtnActionPerformed
 

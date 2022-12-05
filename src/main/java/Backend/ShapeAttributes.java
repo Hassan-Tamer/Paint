@@ -15,6 +15,17 @@ public abstract class ShapeAttributes implements Shape{
         }
 
     @Override
+    public void setDraggingPoint(Point point) {
+        draggingPoint = point;
+        
+    }
+    
+    @Override
+    public Point getDraggPoint() {
+        return draggingPoint;
+    }
+
+    @Override
     public void setPosition(Point position) {
         this.position = position;
     }

@@ -21,4 +21,23 @@ public class Line extends ShapeAttributes{
         canvas.drawLine(((int)Start.getX()), ((int)Start.getY()),
                         ((int)getFinalPosition().getX()), ((int)getFinalPosition().getY()));
     }
+
+    public boolean contains(Point point) {
+        Point Start = getPosition();
+        double  m = (getFinalPosition().y - Start.y)/(getFinalPosition().x - Start.x);
+        
+       if((point.y-Start.y)/(point.x-Start.x)==m){
+           return true;
+       }
+       return false;
+    }
+
+    @Override
+    public void moveTo(Point point) {
+        int x = point.x - FinalPosition.x;
+        int y = point.y - FinalPosition.y;
+        FinalPosition.x+=x;
+        FinalPosition.y+=y;
+        
+    }
 }
