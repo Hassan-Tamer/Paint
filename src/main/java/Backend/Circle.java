@@ -22,9 +22,9 @@ public class Circle extends ShapeAttributes {
     @Override
     public void draw(Graphics canvas) {
         canvas.setColor(getFillColor());
-        canvas.fillOval(((int)getPosition().getX()), ((int)getPosition().getX()) , 2*Radius , 2*Radius);
+        canvas.fillOval(getPosition().x, getPosition().y , 2*Radius , 2*Radius);
         canvas.setColor(getColor());
-        canvas.drawOval(((int)getPosition().getX()), ((int)getPosition().getX()) , 2*Radius , 2*Radius);
+        canvas.drawOval(getPosition().x,getPosition().y, 2*Radius , 2*Radius);
     }
 
     @Override
@@ -38,10 +38,9 @@ public class Circle extends ShapeAttributes {
 
     @Override
     public void moveTo(Point point) {
-        Point p=getDraggingPoint();
-        Point start = getPosition();
-        point.x+=(start.x-p.x);
-        point.y+=(start.y-p.y);
+        Point dragPoint=this.getDraggingPoint();
+        point.x+=(getPosition().x-dragPoint.x);
+        point.y+= (getPosition().y-dragPoint.y);
         setPosition(point);
     }
 }

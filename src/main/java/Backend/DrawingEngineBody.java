@@ -1,10 +1,7 @@
 package Backend;
 
 import java.awt.Graphics;
-import java.net.http.HttpClient.Version;
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
 
 public class DrawingEngineBody extends java.awt.Canvas implements DrawingEngine {
     private ArrayList<Shape> ShapeList = new ArrayList<>();
