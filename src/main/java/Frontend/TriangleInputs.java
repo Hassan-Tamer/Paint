@@ -6,8 +6,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 
 import java.awt.Color;
-import Backend.DrawingEngineBody;
-import Backend.Triangle;
+import Shapes.DrawingEngineBody;
+import Shapes.Triangle;
 
 public class TriangleInputs extends javax.swing.JFrame implements Node{
 

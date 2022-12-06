@@ -5,8 +5,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 
 import java.awt.Color;
-import Backend.DrawingEngineBody;
-import Backend.Line;
+import Shapes.DrawingEngineBody;
+import Shapes.Line;
 
 public class LineInputs extends javax.swing.JFrame implements Node {
 

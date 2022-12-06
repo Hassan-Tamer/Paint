@@ -5,8 +5,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 
 import java.awt.Color;
-import Backend.DrawingEngineBody;
-import Backend.Rectangle;
+import Shapes.DrawingEngineBody;
+import Shapes.Rectangle;
 
 public class RectangleInputs extends javax.swing.JFrame implements Node{
 
