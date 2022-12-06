@@ -179,10 +179,10 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
             Circle c = new Circle(new Point(x,y),radius);
             c.setColor(Border);
             c.setFillColor(Fill);
-            D.addShape(c);
-            ((MainWindow)Pnode).AddComboBox("Circle");
             setVisible(false);
             ((JFrame)Pnode).setVisible(true);
+            D.addShape(c);
+            ((MainWindow)Pnode).AddComboBox("Circle");
             for(javax.swing.JTextField t:TextFields){       //clear all text fields
                 t.setText("");
             }
