@@ -32,9 +32,11 @@ public class Rectangle extends ShapeAttributes{
     public void draw(Graphics canvas) {
         canvas.setColor(getFillColor());
         canvas.fillRect(((int)getPosition().getX()), ((int)getPosition().getY()), width, height);
-        canvas.setColor(getColor());
-        canvas.drawRect(((int)getPosition().getX()), ((int)getPosition().getY()), width, height);
-    }
+        if (getFillColor()!=null) {
+            canvas.setColor(getColor());
+            canvas.drawRect(((int) getPosition().getX()), ((int) getPosition().getY()), width, height);
+        }
+        }
 
     @Override
     public boolean contains(Point point) {

@@ -22,8 +22,10 @@ public class Triangle extends ShapeAttributes{
         int y[]= {((int)point1.getY()) , ((int)point2.getY()) , ((int)point3.getY())};
         canvas.setColor(getColor());
         canvas.drawPolygon(x, y, 3);
+        if (getFillColor()!=null){
         canvas.setColor(getFillColor());
         canvas.fillPolygon(x, y, 3);
+        }
     }
 
     @Override

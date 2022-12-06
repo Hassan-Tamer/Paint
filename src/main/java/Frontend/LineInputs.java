@@ -197,7 +197,7 @@ public class LineInputs extends javax.swing.JFrame implements Node {
             if(i==-1)
                 break;
         }
-        Line line = new Line(new Point(x1,y1),new Point(x2,y2));
+        Line line = new Line(new Point(x2,y2),new Point(x1,y1));
         line.setColor(Border);
         line.setFillColor(Fill);
         D.addShape(line);

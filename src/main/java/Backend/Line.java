@@ -18,8 +18,8 @@ public class Line extends ShapeAttributes{
     public void draw(Graphics canvas) {
         canvas.setColor(getColor());
         Point Start = getPosition();
-        canvas.drawLine(((int)Start.getX()), ((int)Start.getY()),
-                        ((int)getFinalPosition().getX()), ((int)getFinalPosition().getY()));
+        canvas.drawLine(Start.x, Start.y,
+                        getFinalPosition().x, getFinalPosition().y);
     }
 
     public boolean contains(Point point) {
@@ -35,10 +35,13 @@ public class Line extends ShapeAttributes{
     @Override
     public void moveTo(Point point) {
         Point Start = getPosition();
-        int x = point.x - FinalPosition.x;
-        int y = point.y - FinalPosition.y;
-        setPosition(new Point(Start.x+x,Start.y+y));
+        Point dPoint =getDraggingPoint();
+        point.x+=(dPoint.x-Start.x);
+        point.y+=(dPoint.y-Start.y);
+        int x = point.x - Start.x;
+        int y = point.y - Start.y;
         FinalPosition.x+=x;
         FinalPosition.y+=y;
+        setPosition(point);
     }
 }

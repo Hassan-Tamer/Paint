@@ -3,10 +3,7 @@ package Frontend;
 import java.awt.Color;
 import java.awt.Point;
 
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.Popup;
+import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 
 import org.apache.lucene.index.IndexReader.CacheHelper;
@@ -48,7 +45,8 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         initComponents();
         setTitle("Drawing application");
         D = new DrawingEngineBody(DrawingPanel.getGraphics());
-        // DrawingPanel.add(D);
+         DrawingPanel.add(D);
+         D.setBackground(Color.white);
         DrawingPanel.addMouseListener(this);
         DrawingPanel.addMouseMotionListener(this);
 //        DrawingPanel.add();
@@ -66,7 +64,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         jComboBox1 = new javax.swing.JComboBox<>();
         ColorizeBtn = new javax.swing.JButton();
         DeleteBtn = new javax.swing.JButton();
-        DrawingPanel = new java.awt.Canvas();
+        DrawingPanel = new JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -342,7 +340,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     private javax.swing.JButton CircleBtn;
     private javax.swing.JButton ColorizeBtn;
     private javax.swing.JButton DeleteBtn;
-    private java.awt.Canvas DrawingPanel;
+    private JPanel DrawingPanel;
     private javax.swing.JButton LineBtn;
     private javax.swing.JButton RectangleBtn;
     private javax.swing.JButton TriangleBtn;

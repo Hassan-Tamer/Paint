@@ -13,7 +13,7 @@ public class TriangleInputs extends javax.swing.JFrame implements Node{
 
     private Node Pnode;
     private DrawingEngineBody D;
-    private Color Fill = Color.WHITE;
+    private Color Fill = null;
     private Color Border = Color.BLACK;
 
     public TriangleInputs() {
@@ -300,7 +300,7 @@ public class TriangleInputs extends javax.swing.JFrame implements Node{
             t.setText("");
         }
         Border = Color.BLACK;
-        Fill = Color.WHITE;
+        Fill = null;
     }//GEN-LAST:event_CreateBtnActionPerformed
 
     /**
