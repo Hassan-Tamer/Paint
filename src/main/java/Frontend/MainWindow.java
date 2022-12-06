@@ -379,11 +379,9 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     public void mouseDragged(MouseEvent e) {
         Shape[] shapes = D.getShapes();
        if(SelectedIndex!=-1){
-    
         shapes[SelectedIndex].moveTo(e.getPoint());
         shapes[SelectedIndex].setDraggingPoint(e.getPoint());
         D.refresh(DrawingPanel.getGraphics());
-      
        }
     }
 
@@ -395,7 +393,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+        
         
     }
 
