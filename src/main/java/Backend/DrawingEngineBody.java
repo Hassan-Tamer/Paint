@@ -1,19 +1,14 @@
 package Backend;
 
 import java.awt.Graphics;
-import java.net.http.HttpClient.Version;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class DrawingEngineBody extends java.awt.Canvas implements DrawingEngine {
+public class DrawingEngineBody extends JPanel implements DrawingEngine {
     private ArrayList<Shape> ShapeList = new ArrayList<>();
-    private Graphics canvas;
     private int index;
 
-    public DrawingEngineBody(Graphics canvas){
-        this.canvas = canvas;
-    }
 
     public int getIndex(){
         return index;
@@ -27,14 +22,14 @@ public class DrawingEngineBody extends java.awt.Canvas implements DrawingEngine 
     public void addShape(Shape shape) {
         ShapeList.add(shape);
         index++;
-        refresh(canvas);
+        refresh();
     }
 
     @Override
     public void removeShape(Shape shape) {
             boolean isFound = ShapeList.remove(shape);
             if(isFound)
-                refresh(canvas);
+                refresh();
     }
 
     @Override
@@ -44,11 +39,19 @@ public class DrawingEngineBody extends java.awt.Canvas implements DrawingEngine 
     }
 
     @Override
-    public void refresh(Graphics canvas) {
-        canvas.clearRect(0, 0, 9999, 9999);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         for(Shape s : ShapeList){
-            s.draw(canvas);
+            s.draw(g);
         }
     }
 
+    @Override
+    public void refresh(Graphics canvas) {
+        this.repaint();
+    }
+
+    public void refresh() {
+        this.repaint();
+    }
 }

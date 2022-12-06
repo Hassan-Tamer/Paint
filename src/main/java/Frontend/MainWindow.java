@@ -3,10 +3,7 @@ package Frontend;
 import java.awt.Color;
 import java.awt.Point;
 
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.Popup;
+import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 
 import org.apache.lucene.index.IndexReader.CacheHelper;
@@ -23,7 +20,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
      * Creates new form MainWindow
      */
     
-    private DrawingEngineBody D;
+    private DrawingEngineBody D = new DrawingEngineBody();
     private Node Pnode;
     private Color Border = Color.BLACK,Fill = Color.WHITE;
     private CircleInputs CircleWindow;
@@ -47,10 +44,9 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     public MainWindow() {
         initComponents();
         setTitle("Drawing application");
-        D = new DrawingEngineBody(DrawingPanel.getGraphics());
         // DrawingPanel.add(D);
-        DrawingPanel.addMouseListener(this);
-        DrawingPanel.addMouseMotionListener(this);
+        D.addMouseListener(this);
+        D.addMouseMotionListener(this);
 //        DrawingPanel.add();
         setResizable(false);
     }
@@ -66,7 +62,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         jComboBox1 = new javax.swing.JComboBox<>();
         ColorizeBtn = new javax.swing.JButton();
         DeleteBtn = new javax.swing.JButton();
-        DrawingPanel = new java.awt.Canvas();
+        DrawingPanel = D;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -238,7 +234,6 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
             CircleWindow.setParentNode(this);
         }
         CircleWindow.setVisible(true);
-         
     }//GEN-LAST:event_CircleBtnActionPerformed
 
     private void LineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineBtnActionPerformed
@@ -342,7 +337,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     private javax.swing.JButton CircleBtn;
     private javax.swing.JButton ColorizeBtn;
     private javax.swing.JButton DeleteBtn;
-    private java.awt.Canvas DrawingPanel;
+    private JPanel DrawingPanel;
     private javax.swing.JButton LineBtn;
     private javax.swing.JButton RectangleBtn;
     private javax.swing.JButton TriangleBtn;
