@@ -179,7 +179,9 @@ public class LineInputs extends javax.swing.JFrame implements Node {
     }//GEN-LAST:event_Y2DataActionPerformed
 
     private void BorderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorderBtnActionPerformed
-        Border=JColorChooser.showDialog(this,"Border Color",Color.BLACK);
+        Color c=JColorChooser.showDialog(this,"Border Color",Color.BLACK);
+        if(c!=null)
+            Border = c;
     }//GEN-LAST:event_BorderBtnActionPerformed
 
     private void CreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateBtnActionPerformed
@@ -205,6 +207,8 @@ public class LineInputs extends javax.swing.JFrame implements Node {
         for(javax.swing.JTextField t:TextFields){       //clear all text fields
             t.setText("");
         }
+        Border = Color.BLACK;
+        Fill = Color.WHITE;
     }//GEN-LAST:event_CreateBtnActionPerformed
 
     private void Y1DataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Y1DataActionPerformed
