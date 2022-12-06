@@ -1,7 +1,7 @@
 package Frontend;
+
 import java.awt.Point;
 import java.awt.Color;
-
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import Shapes.DrawingEngineBody;
@@ -161,46 +161,48 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearText(){
+        javax.swing.JTextField[] TextFields = {XData,YData,RadiusData};
+        for(javax.swing.JTextField t:TextFields){
+            t.setText("");
+        }
+    }
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {                                                                  
         this.setVisible(false);
         ((JFrame)getParentNode()).setVisible(true);
+        clearText();
     }           
 
     private void CreateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateBtnActionPerformed
         D = ((MainWindow)Pnode).getDrawingEngine();
-        javax.swing.JTextField[] TextFields = {XData,YData,RadiusData};
         int x = ((MainWindow)Pnode).Validations(XData);
         int y = ((MainWindow)Pnode).Validations(YData);
         int radius = ((MainWindow)Pnode).Validations(RadiusData);
-        if(x == -1 || y== -1 || radius == -1){
-
-        }
-        else{
-            Circle c = new Circle(new Point(x,y),radius);
-            c.setColor(Border);
-            c.setFillColor(Fill);
-            setVisible(false);
-            ((JFrame)Pnode).setVisible(true);
-            D.addShape(c);
-            ((MainWindow)Pnode).AddComboBox("Circle");
-            for(javax.swing.JTextField t:TextFields){       //clear all text fields
-                t.setText("");
-            }
-            Border = Color.BLACK;
-            Fill = Color.WHITE;
-        }  
-
+        if(x == -1 || y== -1 || radius == -1)
+            return;
+    
+        Circle c = new Circle(new Point(x,y),radius);
+        c.setColor(Border);
+        c.setFillColor(Fill);
+        setVisible(false);
+        ((JFrame)Pnode).setVisible(true);
+        D.addShape(c);
+        ((MainWindow)Pnode).AddComboBox("Circle");
+        Border = Color.BLACK;
+        Fill = Color.WHITE;
+        clearText();
         
     }//GEN-LAST:event_CreateBtnActionPerformed
 
     private void FillBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FillBtnActionPerformed
-        Color c=JColorChooser.showDialog(this,"Fill Color",Color.WHITE);
+        Color c=JColorChooser.showDialog(this,"Fill Color",Fill);
         if(c!=null)
             Fill = c;
     }//GEN-LAST:event_FillBtnActionPerformed
 
     private void BorderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorderBtnActionPerformed
-        Color c=JColorChooser.showDialog(this,"Fill Color",Color.WHITE);
+        Color c=JColorChooser.showDialog(this,"Fill Color",Border);
         if(c!=null)
             Border = c;
     }//GEN-LAST:event_BorderBtnActionPerformed

@@ -38,10 +38,8 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     public MainWindow() {
         initComponents();
         setTitle("Drawing application");
-        // DrawingPanel.add(D);
         D.addMouseListener(this);
         D.addMouseMotionListener(this);
-//        DrawingPanel.add();
         setResizable(false);
     }
     
@@ -192,7 +190,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     
     public void AddComboBox(String name){
         if(jComboBox1.getSelectedIndex() == -1)     //In case we deleted all shapes we restart indexing
-            D.setIndex(1);
+            D.setIndex(1);                    //index written in the combobox
         int index = D.getIndex();
         jComboBox1.addItem(name+" "+index);
         jComboBox1.setSelectedIndex(index-1);       //sets the selected item the last drawn figure
@@ -228,6 +226,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
             CircleWindow.setParentNode(this);
         }
         CircleWindow.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_CircleBtnActionPerformed
 
     private void LineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineBtnActionPerformed
@@ -236,6 +235,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
             LineWindow.setParentNode(this);
         }
         LineWindow.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_LineBtnActionPerformed
 
     private void TriangleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TriangleBtnActionPerformed
@@ -244,6 +244,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
             TriangleWindow.setParentNode(this);
         }
         TriangleWindow.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_TriangleBtnActionPerformed
 
     private void RectangleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RectangleBtnActionPerformed
@@ -252,6 +253,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
             RectangleWindow.setParentNode(this);
         }
         RectangleWindow.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_RectangleBtnActionPerformed
 
     private void ColorizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ColorizeBtnActionPerformed
@@ -261,14 +263,13 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
             "WARNING" , 2);
             return;
         }
-        Color c1=JColorChooser.showDialog(this,"Border Color",Color.BLACK);
-        Color c2=JColorChooser.showDialog(this,"Fill Color",Color.WHITE);
+        Color c1=JColorChooser.showDialog(this,"Border Color",Border);
+        Color c2=JColorChooser.showDialog(this,"Fill Color",Fill);
 
         if(c1 != null)
             Border = c1;
         if(c2 != null)
             Fill = c2;
-        
 
         int index = jComboBox1.getSelectedIndex();
         Shape[] s = D.getShapes();
@@ -367,7 +368,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     @Override
     public void mouseDragged(MouseEvent e) {
         Shape[] shapes = D.getShapes();
-       if(SelectedIndex!=-1){
+       if(SelectedIndex!=-1 && shapes[SelectedIndex].contains(e.getPoint())){
         shapes[SelectedIndex].moveTo(e.getPoint());
         shapes[SelectedIndex].setDraggingPoint(e.getPoint());
         D.refresh(DrawingPanel.getGraphics());
@@ -376,26 +377,18 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
-        
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
+    public void mouseEntered(MouseEvent e) {     
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
+    public void mouseExited(MouseEvent e) {  
     }
 
 
