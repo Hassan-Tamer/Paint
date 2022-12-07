@@ -353,24 +353,23 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     @Override
     public void mousePressed(MouseEvent e) {
         Shape[] shapes = D.getShapes();
-        int i = 0;
-        for(Shape s : shapes){
-            if(s.contains(e.getPoint())){
-                jComboBox1.setSelectedIndex(i);
-                s.setDraggingPoint(e.getPoint());
-                SelectedIndex=i;
+        for(int j=shapes.length - 1;j>= 0;j--){
+            Shape s = shapes[j];
+            if(((ShapeAttributes)s).contains(e.getPoint())){
+                jComboBox1.setSelectedIndex(j);
+                ((ShapeAttributes)s).setDraggingPoint(e.getPoint());
+                SelectedIndex=j;
                 return;
             }
-            i++;
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         Shape[] shapes = D.getShapes();
-       if(SelectedIndex!=-1 && shapes[SelectedIndex].contains(e.getPoint())){
-        shapes[SelectedIndex].moveTo(e.getPoint());
-        shapes[SelectedIndex].setDraggingPoint(e.getPoint());
+       if(SelectedIndex!=-1 &&((ShapeAttributes)shapes[SelectedIndex]).contains(e.getPoint())){
+       ((ShapeAttributes)shapes[SelectedIndex]).moveTo(e.getPoint());
+       ((ShapeAttributes)shapes[SelectedIndex]).setDraggingPoint(e.getPoint());
         D.refresh(DrawingPanel.getGraphics());
        }
     }
