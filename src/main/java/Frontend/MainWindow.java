@@ -348,15 +348,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         AddComboBox(s[0]);
         }
         catch(CloneNotSupportedException e){}
-        System.out.println(s[0]);
-        // if(s[0].equals("Rectangle")){
-        //     Rectangle r = new Rectangle(new Point(10,10), 100, 100);
-        // r.setFillColor(Color.MAGENTA);
-        //     D.addShape(r);
-        //     AddComboBox("lkj");
-        //     System.out.println("kjh");
-        // }
-            
+        System.out.println(s[0]);            
     }//GEN-LAST:event_CopyBtnActionPerformed
 
     private void LoadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadBtnActionPerformed
