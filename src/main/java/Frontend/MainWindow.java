@@ -1,6 +1,8 @@
 package Frontend;
 
 import java.awt.Color;
+import java.awt.Point;
+
 import javax.swing.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -336,7 +338,25 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
     private void CopyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyBtnActionPerformed
-        // TODO add your handling code here:
+        int i = jComboBox1.getSelectedIndex();
+        Shape shapes[] = D.getShapes();
+        String shapeName = jComboBox1.getItemAt(i);
+        String[] s = shapeName.split(" ");
+        try{
+        Shape newShape =(Shape)((ShapeAttributes)shapes[i]).clone();
+        D.addShape(newShape);
+        AddComboBox(s[0]);
+        }
+        catch(CloneNotSupportedException e){}
+        System.out.println(s[0]);
+        // if(s[0].equals("Rectangle")){
+        //     Rectangle r = new Rectangle(new Point(10,10), 100, 100);
+        // r.setFillColor(Color.MAGENTA);
+        //     D.addShape(r);
+        //     AddComboBox("lkj");
+        //     System.out.println("kjh");
+        // }
+            
     }//GEN-LAST:event_CopyBtnActionPerformed
 
     private void LoadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadBtnActionPerformed
