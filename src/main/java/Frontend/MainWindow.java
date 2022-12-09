@@ -5,7 +5,10 @@ import java.awt.Point;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import org.json.simple.JSONObject;
+// import org.json.JSONArray;
+// import org.json.JSONException;
+import org.json.JSONObject;
+// import org.json.JSONString;
 
 import javax.swing.*;
 import java.awt.event.MouseListener;
@@ -381,7 +384,6 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         String path = filename.getAbsolutePath();
         System.out.println(path);
         Shape[] shapes = D.getShapes();
-        
     }//GEN-LAST:event_SaveBtnActionPerformed
 
     private void drawPoints(){
