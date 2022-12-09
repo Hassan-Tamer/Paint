@@ -55,6 +55,11 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         ColorizeBtn = new javax.swing.JButton();
         DeleteBtn = new javax.swing.JButton();
         DrawingPanel = D;
+        CopyBtn = new javax.swing.JButton();
+        MenuBar = new javax.swing.JMenuBar();
+        FileBtn = new javax.swing.JMenu();
+        SaveBtn = new javax.swing.JMenuItem();
+        LoadBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -62,7 +67,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
 
         CircleBtn.setBackground(new java.awt.Color(153, 255, 255));
         CircleBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        CircleBtn.setText("Circle");
+        CircleBtn.setText("Oval");
         CircleBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CircleBtnActionPerformed(evt);
@@ -99,7 +104,6 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Select Shape");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 
@@ -131,6 +135,39 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
 
         DrawingPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        CopyBtn.setBackground(new java.awt.Color(153, 255, 255));
+        CopyBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CopyBtn.setText("Copy");
+        CopyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyBtnActionPerformed(evt);
+            }
+        });
+
+        FileBtn.setText("File");
+
+        SaveBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        SaveBtn.setText("Save");
+        SaveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveBtnActionPerformed(evt);
+            }
+        });
+        FileBtn.add(SaveBtn);
+
+        LoadBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        LoadBtn.setText("Load");
+        LoadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadBtnActionPerformed(evt);
+            }
+        });
+        FileBtn.add(LoadBtn);
+
+        MenuBar.add(FileBtn);
+
+        setJMenuBar(MenuBar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,7 +184,10 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
                         .addContainerGap()
                         .addComponent(ColorizeBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(DeleteBtn)))
+                        .addComponent(DeleteBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(CopyBtn)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -164,7 +204,7 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(8, 226, Short.MAX_VALUE)
+                .addGap(8, 203, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,7 +212,9 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ColorizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(123, 123, 123))
+                .addGap(18, 18, 18)
+                .addComponent(CopyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -293,15 +335,19 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
 
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void CopyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CopyBtnActionPerformed
+
+    private void LoadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoadBtnActionPerformed
+
+    private void SaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SaveBtnActionPerformed
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -331,10 +377,15 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CircleBtn;
     private javax.swing.JButton ColorizeBtn;
+    private javax.swing.JButton CopyBtn;
     private javax.swing.JButton DeleteBtn;
     private JPanel DrawingPanel;
+    private javax.swing.JMenu FileBtn;
     private javax.swing.JButton LineBtn;
+    private javax.swing.JMenuItem LoadBtn;
+    private javax.swing.JMenuBar MenuBar;
     private javax.swing.JButton RectangleBtn;
+    private javax.swing.JMenuItem SaveBtn;
     private javax.swing.JButton TriangleBtn;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
