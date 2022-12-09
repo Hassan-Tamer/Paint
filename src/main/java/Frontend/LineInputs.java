@@ -197,7 +197,7 @@ public class LineInputs extends javax.swing.JFrame implements Node {
         line.setColor(Border);
         line.setFillColor(Fill);
         D.addShape(line);
-        ((MainWindow)Pnode).AddComboBox("Line");
+        ((MainWindow)Pnode).AddComboBox(line.toString());
         setVisible(false);
         ((JFrame)Pnode).setVisible(true);
         clearText();

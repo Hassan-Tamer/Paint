@@ -214,7 +214,7 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
         setVisible(false);
         ((JFrame)Pnode).setVisible(true);
         D.addShape(c);
-        ((MainWindow)Pnode).AddComboBox("Oval");
+        ((MainWindow)Pnode).AddComboBox(c.toString());
         Border = Color.BLACK;
         Fill = Color.WHITE;
         clearText();
@@ -294,5 +294,4 @@ public class CircleInputs extends javax.swing.JFrame implements Node{
     public Node getParentNode() {
         return Pnode;
     }
-
 }

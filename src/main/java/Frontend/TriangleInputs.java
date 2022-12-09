@@ -269,7 +269,7 @@ public class TriangleInputs extends javax.swing.JFrame implements Node{
         triangle.setColor(Border);
         triangle.setFillColor(Fill);
         D.addShape(triangle);
-        ((MainWindow)Pnode).AddComboBox("Triangle");
+        ((MainWindow)Pnode).AddComboBox(triangle.toString());
         setVisible(false);
         ((JFrame)Pnode).setVisible(true);
         clearText();

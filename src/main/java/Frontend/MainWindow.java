@@ -2,12 +2,16 @@ package Frontend;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONObject;
 
 import javax.swing.*;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-
+import java.util.ArrayList;
 
 import Shapes.*;
 
@@ -24,6 +28,8 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     private TriangleInputs TriangleWindow;
     private LineInputs LineWindow;
     private int SelectedIndex = -1;
+    private ArrayList<Point> Vertices = new ArrayList<>();
+
 
     public void setFill(Color fill) {
         Fill = fill;
@@ -271,6 +277,11 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
         }
         CircleWindow.setVisible(true);
         setVisible(false);
+        // Circle c = new Circle(new Point(90,90) , 90,200);
+        // c.setFillColor(Color.MAGENTA);
+        // D.addShape(c);
+        // AddComboBox("Circle");
+
     }//GEN-LAST:event_CircleBtnActionPerformed
 
     private void LineBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineBtnActionPerformed
@@ -340,24 +351,123 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     private void CopyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyBtnActionPerformed
         int i = jComboBox1.getSelectedIndex();
         Shape shapes[] = D.getShapes();
-        String shapeName = jComboBox1.getItemAt(i);
-        String[] s = shapeName.split(" ");
         try{
         Shape newShape =(Shape)((ShapeAttributes)shapes[i]).clone();
         D.addShape(newShape);
-        AddComboBox(s[0]);
+        AddComboBox(newShape.toString());
         }
-        catch(CloneNotSupportedException e){}
-        System.out.println(s[0]);            
+        catch(CloneNotSupportedException e){
+            
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "THERE ARE NO SHAPES TO COPY", 
+            "WARNING" , 2);
+        }
+               
     }//GEN-LAST:event_CopyBtnActionPerformed
+
 
     private void LoadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LoadBtnActionPerformed
 
     private void SaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveBtnActionPerformed
-        // TODO add your handling code here:
+        JSONObject jsonObject = new JSONObject();
+        JFileChooser jfc = new JFileChooser();
+        jfc.setDialogTitle("SELECT YOUR FILE");
+        jfc.showDialog(null,"Save");
+        jfc.setVisible(true);
+        File filename = jfc.getSelectedFile();
+        String path = filename.getAbsolutePath();
+        System.out.println(path);
+        Shape[] shapes = D.getShapes();
+        
     }//GEN-LAST:event_SaveBtnActionPerformed
+
+    private void drawPoints(){
+        DrawingPanel.getGraphics().setColor(Color.BLACK);
+        // D.refresh();
+        for(Point p : Vertices){
+            DrawingPanel.getGraphics().fillRect(p.x - 3,p.y -3,8,8);
+        }
+    }
+
+    private void drawVertices(Shape s){
+        Vertices.clear();
+        Point p1 = s.getPosition();
+        Vertices.add(p1);
+        Point p2,p3,p4;
+        if(s instanceof Line){
+            p2 =((Line)s).getFinalPosition();
+            Vertices.add(p1);
+            Vertices.add(p2);
+        }
+        else if(s instanceof Triangle){
+            p2 = ((Triangle)s).getPoint2();
+            p3 = ((Triangle)s).getPoint3();
+            Vertices.add(p2);
+            Vertices.add(p3);
+        }
+        else if(s instanceof Circle){
+            int w = ((Circle)s).getWidth();
+            int h = ((Circle)s).getHeight();
+            p2 = new Point(p1.x + w, p1.y);
+            p3 = new Point(p1.x, p1.y + h);
+            p4 = new Point(p1.x + w, p1.y + h);
+            Vertices.add(p2);
+            Vertices.add(p3);
+            Vertices.add(p4);
+        }
+        else if(s instanceof Rectangle){
+            int w = ((Rectangle)s).getWidth();
+            int h = ((Rectangle)s).getHeight();
+            p2 = new Point(p1.x + w, p1.y);
+            p3 = new Point(p1.x, p1.y + h);
+            p4 = new Point(p1.x + w, p1.y + h);
+            Vertices.add(p2);
+            Vertices.add(p3);
+            Vertices.add(p4);
+        }
+        else
+            return;
+
+        drawPoints();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        boolean Refreshed = false;
+        Shape[] shapes = D.getShapes();
+        for(int j=shapes.length - 1;j>= 0;j--){
+            Shape s = shapes[j];
+            if(((ShapeAttributes)s).contains(e.getPoint())){
+                if(SelectedIndex != j && SelectedIndex != -1){
+                    D.refresh();
+                    Refreshed = true;
+                    
+                }
+                jComboBox1.setSelectedIndex(j);
+                ((ShapeAttributes)s).setDraggingPoint(e.getPoint());
+
+                SelectedIndex=j;
+                drawVertices(s);
+                
+                return;
+            }
+        }
+        if(!Refreshed)
+            D.refresh();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        Shape[] shapes = D.getShapes();
+       if(SelectedIndex!=-1 &&((ShapeAttributes)shapes[SelectedIndex]).contains(e.getPoint())){
+            ((ShapeAttributes)shapes[SelectedIndex]).moveTo(e.getPoint());
+            ((ShapeAttributes)shapes[SelectedIndex]).setDraggingPoint(e.getPoint());
+            D.refresh(DrawingPanel.getGraphics());
+       }
+    }
 
     public static void main(String args[]) {
         try {
@@ -414,35 +524,13 @@ public class MainWindow extends javax.swing.JFrame implements Node , MouseListen
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        Shape[] shapes = D.getShapes();
-        for(int j=shapes.length - 1;j>= 0;j--){
-            Shape s = shapes[j];
-            if(((ShapeAttributes)s).contains(e.getPoint())){
-                jComboBox1.setSelectedIndex(j);
-                ((ShapeAttributes)s).setDraggingPoint(e.getPoint());
-                SelectedIndex=j;
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        Shape[] shapes = D.getShapes();
-       if(SelectedIndex!=-1 &&((ShapeAttributes)shapes[SelectedIndex]).contains(e.getPoint())){
-       ((ShapeAttributes)shapes[SelectedIndex]).moveTo(e.getPoint());
-       ((ShapeAttributes)shapes[SelectedIndex]).setDraggingPoint(e.getPoint());
-        D.refresh(DrawingPanel.getGraphics());
-       }
-    }
-
-    @Override
     public void mouseClicked(MouseEvent e) {
+        // System.out.println("clicked");
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        // System.out.println("Released");
     }
 
     @Override

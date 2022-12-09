@@ -217,7 +217,7 @@ public class RectangleInputs extends javax.swing.JFrame implements Node{
         r.setColor(Border);
         r.setFillColor(Fill);
         D.addShape(r);
-        ((MainWindow)Pnode).AddComboBox("Rectangle");
+        ((MainWindow)Pnode).AddComboBox(r.toString());
         setVisible(false);
         ((JFrame)Pnode).setVisible(true);
         clearText();
